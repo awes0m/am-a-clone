@@ -1,6 +1,7 @@
 import 'package:ama_clone/utils/color_themes.dart';
-import 'package:ama_clone/utils/constants.dart';
 import 'package:flutter/material.dart';
+
+import '../utils/utils.dart';
 
 class CustomMainButton extends StatelessWidget {
   final Widget child;

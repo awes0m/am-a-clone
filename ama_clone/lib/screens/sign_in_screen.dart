@@ -1,10 +1,14 @@
+import 'dart:developer';
+
+import 'package:ama_clone/resources/authentication_methods.dart';
 import 'package:ama_clone/screens/sign_up_screen.dart';
 import 'package:ama_clone/utils/color_themes.dart';
 import 'package:ama_clone/utils/constants.dart';
-import 'package:ama_clone/widget/text_field_widget.dart';
+import 'package:ama_clone/widgets/text_field_widget.dart';
 import 'package:flutter/material.dart';
 
-import '../widget/custom_main_button.dart';
+import '../utils/utils.dart';
+import '../widgets/custom_main_button.dart';
 
 class SignInScreen extends StatefulWidget {
   static const String routeName = '/signIn';
@@ -17,6 +21,7 @@ class SignInScreen extends StatefulWidget {
 class _SignInScreenState extends State<SignInScreen> {
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
+  AuthenticationMethods authMethods = AuthenticationMethods();
 
   @override
   void dispose() {
@@ -28,6 +33,7 @@ class _SignInScreenState extends State<SignInScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       body: SingleChildScrollView(
         child: SizedBox(
           height: ScrnSizer.screenHeight(),
@@ -92,7 +98,21 @@ class _SignInScreenState extends State<SignInScreen> {
                                     color: Colors.black, letterSpacing: 0.6),
                               ),
                               color: yellowColor,
-                              onPressed: () {},
+                              onPressed: () async {
+                                String output = await authMethods.signIn(
+                                    email: emailController.text,
+                                    password: passwordController.text);
+
+                                if (output == 'success') {
+                                  log('Doing next steps');
+                                  //TODO: function to navigate to home screen
+                                } else {
+                                  Utils.showSnackBar(
+                                    context: context,
+                                    message: output,
+                                  );
+                                }
+                              },
                               isLoading: false,
                             ),
                           ),

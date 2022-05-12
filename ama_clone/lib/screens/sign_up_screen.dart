@@ -1,9 +1,13 @@
+import 'dart:developer';
+
+import 'package:ama_clone/resources/authentication_methods.dart';
 import 'package:flutter/material.dart';
 
 import '../utils/color_themes.dart';
 import '../utils/constants.dart';
-import '../widget/custom_main_button.dart';
-import '../widget/text_field_widget.dart';
+import '../utils/utils.dart';
+import '../widgets/custom_main_button.dart';
+import '../widgets/text_field_widget.dart';
 
 class SignUpScreen extends StatefulWidget {
   static const String routeName = '/signUp';
@@ -18,6 +22,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
   TextEditingController emailController = TextEditingController();
   TextEditingController addressController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
+  AuthenticationMethods authMethods = AuthenticationMethods();
 
   @override
   void dispose() {
@@ -31,6 +36,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       body: SingleChildScrollView(
         child: SizedBox(
           height: ScrnSizer.screenHeight(),
@@ -112,7 +118,24 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                         letterSpacing: 0.6),
                                   ),
                                   color: yellowColor,
-                                  onPressed: () {},
+                                  onPressed: () async {
+                                    String output = await authMethods.signUp(
+                                      name: nameController.text,
+                                      email: emailController.text,
+                                      address: addressController.text,
+                                      password: passwordController.text,
+                                    );
+
+                                    if (output == 'success') {
+                                      log("Doing next steps");
+                                      //TODO: function to navigate to home screen
+                                    } else {
+                                      Utils.showSnackBar(
+                                        context: context,
+                                        message: output,
+                                      );
+                                    }
+                                  },
                                   isLoading: false,
                                 ),
                               ),

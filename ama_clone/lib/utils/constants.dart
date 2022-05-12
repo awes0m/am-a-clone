@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 
 const double kAppBarHeight = 80;
 
@@ -55,9 +54,3 @@ const List<String> adItemNames = [
 const String amazonLogo =
     "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a9/Amazon_logo.svg/2560px-Amazon_logo.svg.png";
 
-class ScrnSizer {
-  static double screenWidth() =>
-      MediaQueryData.fromWindow(WidgetsBinding.instance!.window).size.width;
-  static double screenHeight() =>
-      MediaQueryData.fromWindow(WidgetsBinding.instance!.window).size.height;
-}
