@@ -8,6 +8,7 @@ import '../utils/constants.dart';
 import '../utils/utils.dart';
 import '../widgets/custom_main_button.dart';
 import '../widgets/text_field_widget.dart';
+import 'sign_in_screen.dart';
 
 class SignUpScreen extends StatefulWidget {
   static const String routeName = '/signUp';
@@ -23,6 +24,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
   TextEditingController addressController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
   AuthenticationMethods authMethods = AuthenticationMethods();
+  bool isLoading = false;
 
   @override
   void dispose() {
@@ -119,16 +121,23 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                   ),
                                   color: yellowColor,
                                   onPressed: () async {
+                                    setState(() {
+                                      isLoading = true;
+                                    });
                                     String output = await authMethods.signUp(
                                       name: nameController.text,
                                       email: emailController.text,
                                       address: addressController.text,
                                       password: passwordController.text,
                                     );
+                                    setState(() {
+                                      isLoading = false;
+                                    });
 
                                     if (output == 'success') {
                                       log("Doing next steps");
-                                      //TODO: function to navigate to home screen
+                                      Navigator.pushReplacementNamed(
+                                          context, SignInScreen.routeName);
                                     } else {
                                       Utils.showSnackBar(
                                         context: context,
@@ -136,7 +145,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                       );
                                     }
                                   },
-                                  isLoading: false,
+                                  isLoading: isLoading,
                                 ),
                               ),
                             ],
@@ -152,7 +161,10 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         color: Colors.grey[400]!,
                         isLoading: false,
                         onPressed: () {
-                          Navigator.pop(context);
+                          Navigator.pushReplacementNamed(
+                            context,
+                            SignInScreen.routeName,
+                          );
                         })
                   ],
                 ),

@@ -16,7 +16,7 @@ class Utils {
   static showSnackBar(
       {required BuildContext context, required String message}) {
     ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-      backgroundColor: Color.fromARGB(255, 212, 85, 0),
+      backgroundColor: const Color.fromARGB(255, 212, 85, 0),
       shape: const RoundedRectangleBorder(
           // borderRadius: BorderRadius.only(
           //   topLeft: Radius.circular(10),

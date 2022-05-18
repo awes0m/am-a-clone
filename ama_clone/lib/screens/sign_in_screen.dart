@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:ama_clone/resources/authentication_methods.dart';
+import 'package:ama_clone/screens/homescreen.dart';
 import 'package:ama_clone/screens/sign_up_screen.dart';
 import 'package:ama_clone/utils/color_themes.dart';
 import 'package:ama_clone/utils/constants.dart';
@@ -22,6 +23,7 @@ class _SignInScreenState extends State<SignInScreen> {
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
   AuthenticationMethods authMethods = AuthenticationMethods();
+  bool isLoading = false;
 
   @override
   void dispose() {
@@ -66,7 +68,7 @@ class _SignInScreenState extends State<SignInScreen> {
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          /// Sign in text
+                          /// Sign in  Top text
                           const Text(
                             'Sign-In',
                             style: TextStyle(
@@ -98,14 +100,23 @@ class _SignInScreenState extends State<SignInScreen> {
                                     color: Colors.black, letterSpacing: 0.6),
                               ),
                               color: yellowColor,
+                              isLoading: isLoading,
                               onPressed: () async {
+                                setState(() {
+                                  isLoading = true;
+                                });
                                 String output = await authMethods.signIn(
                                     email: emailController.text,
                                     password: passwordController.text);
 
+                                setState(() {
+                                  isLoading = false;
+                                });
+
                                 if (output == 'success') {
                                   log('Doing next steps');
-                                  //TODO: function to navigate to home screen
+                                  Navigator.pushReplacementNamed(
+                                      context, HomeScreen.routeName);
                                 } else {
                                   Utils.showSnackBar(
                                     context: context,
@@ -113,7 +124,6 @@ class _SignInScreenState extends State<SignInScreen> {
                                   );
                                 }
                               },
-                              isLoading: false,
                             ),
                           ),
                         ],
@@ -142,7 +152,8 @@ class _SignInScreenState extends State<SignInScreen> {
                         color: Colors.grey[400]!,
                         isLoading: false,
                         onPressed: () {
-                          Navigator.pushNamed(context, SignUpScreen.routeName);
+                          Navigator.pushReplacementNamed(
+                              context, SignUpScreen.routeName);
                         })
                   ],
                 ),
