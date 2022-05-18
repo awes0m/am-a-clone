@@ -1,5 +1,4 @@
-import 'package:ama_clone/resources/authentication_methods.dart';
-import 'package:ama_clone/screens/sign_in_screen.dart';
+import '../widgets/search_bar_widget.dart';
 import 'package:flutter/material.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -8,13 +7,14 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Center(
-        child: ElevatedButton(
-      child: const Text("Sign-out"),
-      onPressed: () async {
-        await signOut();
-        Navigator.pushReplacementNamed(context, SignInScreen.routeName);
-      },
-    ));
+    return Scaffold(
+      appBar: SearchBarWidget(
+        isReadOnly: true,
+        hasBackButton: false,
+      ),
+      body: const Center(
+        child: Text('Home Screen'),
+      ),
+    );
   }
 }

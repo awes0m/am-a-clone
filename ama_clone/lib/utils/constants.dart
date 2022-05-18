@@ -1,3 +1,5 @@
+import 'package:ama_clone/screens/homescreen.dart';
+import 'package:flutter/material.dart';
 
 const double kAppBarHeight = 80;
 
@@ -14,6 +16,13 @@ const List<String> categoriesList = [
   "Appliances",
   "Books, Toys",
   "Essential"
+];
+
+const List<Widget> screenlist = [
+  HomeScreen(),
+  Center(child: Text("Accounts Screen")),
+  Center(child: Text("Cart Screen")),
+  Center(child: Text("More Screen")),
 ];
 
 const List<String> categoryLogos = [
@@ -53,4 +62,3 @@ const List<String> adItemNames = [
 //Dont even attemp to scroll to the end of this manually lmao
 const String amazonLogo =
     "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a9/Amazon_logo.svg/2560px-Amazon_logo.svg.png";
-

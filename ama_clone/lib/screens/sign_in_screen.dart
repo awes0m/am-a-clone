@@ -1,13 +1,13 @@
 import 'dart:developer';
 
-import 'package:ama_clone/resources/authentication_methods.dart';
-import 'package:ama_clone/screens/homescreen.dart';
-import 'package:ama_clone/screens/sign_up_screen.dart';
-import 'package:ama_clone/utils/color_themes.dart';
-import 'package:ama_clone/utils/constants.dart';
-import 'package:ama_clone/widgets/text_field_widget.dart';
 import 'package:flutter/material.dart';
 
+import '../layout/screen_layout.dart';
+import '../resources/authentication_methods.dart';
+import 'sign_up_screen.dart';
+import '../utils/color_themes.dart';
+import '../utils/constants.dart';
+import '../widgets/text_field_widget.dart';
 import '../utils/utils.dart';
 import '../widgets/custom_main_button.dart';
 
@@ -116,7 +116,7 @@ class _SignInScreenState extends State<SignInScreen> {
                                 if (output == 'success') {
                                   log('Doing next steps');
                                   Navigator.pushReplacementNamed(
-                                      context, HomeScreen.routeName);
+                                      context, ScreenLayout.routeName);
                                 } else {
                                   Utils.showSnackBar(
                                     context: context,

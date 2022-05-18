@@ -1,4 +1,6 @@
+import 'package:ama_clone/layout/screen_layout.dart';
 import 'package:ama_clone/screens/homescreen.dart';
+import 'package:ama_clone/screens/search_screen.dart';
 import 'package:ama_clone/screens/sign_in_screen.dart';
 import 'package:ama_clone/screens/sign_up_screen.dart';
 import 'package:ama_clone/utils/color_themes.dart';
@@ -56,9 +58,11 @@ class AmaClone extends StatelessWidget {
             }
           }),
       routes: {
+        ScreenLayout.routeName: (context) => const ScreenLayout(),
         HomeScreen.routeName: (context) => const HomeScreen(),
         SignInScreen.routeName: (context) => const SignInScreen(),
-        SignUpScreen.routeName: (context) => const SignUpScreen()
+        SignUpScreen.routeName: (context) => const SignUpScreen(),
+        SearchScreen.routeName: (context) => const SearchScreen(),
       },
     );
   }
