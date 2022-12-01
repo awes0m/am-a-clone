@@ -1,8 +1,9 @@
-import 'package:ama_clone/common/widgets/custom_button.dart';
-import 'package:ama_clone/constants/global_variables.dart';
 import 'package:flutter/material.dart';
 
-import '../../../common/widgets/custom_textField.dart';
+import '../../../common/widgets/custom_button.dart';
+import '../../../common/widgets/custom_text_field.dart';
+import '../../../constants/global_variables.dart';
+import '../services/auth_service.dart';
 
 enum Auth {
   signIn,
@@ -26,6 +27,7 @@ class _AuthScreenState extends State<AuthScreen> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   final TextEditingController _nameController = TextEditingController();
+  final AuthService authService = AuthService();
 
   @override
   void dispose() {
@@ -35,115 +37,162 @@ class _AuthScreenState extends State<AuthScreen> {
     super.dispose();
   }
 
+  void signUpUser() {
+    authService.signUpUser(
+      context: context,
+      email: _emailController.text,
+      password: _passwordController.text,
+      name: _nameController.text,
+    );
+  }
+
+  void signInUser() {
+    authService.signInUser(
+      context: context,
+      email: _emailController.text,
+      password: _passwordController.text,
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: GlobalVariables.greyBackgroundCOlor,
       body: Padding(
         padding: const EdgeInsets.all(8.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const Text(
-              'Welcome!',
-              style: TextStyle(fontSize: 22, fontWeight: FontWeight.w500),
-            ),
+        child: SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const Text(
+                'Welcome to',
+                style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
+              ),
+              const Text(
+                'TrxPlore',
+                style: TextStyle(
+                    fontSize: 40,
+                    fontWeight: FontWeight.w300,
+                    color: GlobalVariables.secondaryColor),
+              ),
 
-            //SIGN UP
-            ListTile(
-              shape: const RoundedRectangleBorder(
-                  borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(10),
-                      topRight: Radius.circular(10))),
-              tileColor: _auth == Auth.signUp
-                  ? GlobalVariables.backgroundColor
-                  : GlobalVariables.greyBackgroundCOlor,
-              title: const Text(
-                'Create Account',
-                style: TextStyle(fontWeight: FontWeight.bold),
+              //SIGN UP
+              ListTile(
+                shape: const RoundedRectangleBorder(
+                    borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(10),
+                        topRight: Radius.circular(10))),
+                tileColor: _auth == Auth.signUp
+                    ? GlobalVariables.backgroundColor
+                    : GlobalVariables.greyBackgroundCOlor,
+                title: const Text(
+                  'Create Account',
+                  style: TextStyle(fontWeight: FontWeight.bold),
+                ),
+                leading: Radio(
+                    activeColor: GlobalVariables.secondaryColor,
+                    value: Auth.signUp,
+                    groupValue: _auth,
+                    onChanged: (Auth? val) {
+                      setState(() {
+                        _auth = val!;
+                      });
+                    }),
               ),
-              leading: Radio(
-                  activeColor: GlobalVariables.secondaryColor,
-                  value: Auth.signUp,
-                  groupValue: _auth,
-                  onChanged: (Auth? val) {
-                    setState(() {
-                      _auth = val!;
-                    });
-                  }),
-            ),
-            if (_auth == Auth.signUp)
-              Container(
-                padding: const EdgeInsets.all(8),
-                color: GlobalVariables.backgroundColor,
-                child: Form(
-                  key: _signUpFormKey,
-                  child: Column(
-                    children: [
-                      CustomTextField(
-                        controller: _nameController,
-                        hintText: 'Name',
-                      ),
-                      CustomTextField(
-                        controller: _emailController,
-                        hintText: 'E-Mail',
-                      ),
-                      CustomTextField(
-                        controller: _passwordController,
-                        hintText: 'Password',
-                      ),
-                      const SizedBox(height: 10),
-                      CustomButton(text: 'Sign Up', onTap: () {})
-                    ],
+              if (_auth == Auth.signUp)
+                Container(
+                  padding: const EdgeInsets.all(8),
+                  color: GlobalVariables.backgroundColor,
+                  child: Form(
+                    key: _signUpFormKey,
+                    child: Column(
+                      children: [
+                        CustomTextField(
+                          controller: _nameController,
+                          hintText: 'Name',
+                        ),
+                        CustomTextField(
+                          controller: _emailController,
+                          hintText: 'E-Mail',
+                        ),
+                        CustomTextField(
+                          controller: _passwordController,
+                          hintText: 'Password',
+                        ),
+                        const SizedBox(height: 10),
+                        CustomButton(
+                            text: 'Sign Up',
+                            onTap: () {
+                              if (_signUpFormKey.currentState!.validate()) {
+                                signUpUser();
+                              }
+                            })
+                      ],
+                    ),
                   ),
                 ),
+              //SIGN IN
+              ListTile(
+                shape: const RoundedRectangleBorder(
+                    borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(10),
+                        topRight: Radius.circular(10))),
+                tileColor: _auth == Auth.signIn
+                    ? GlobalVariables.backgroundColor
+                    : GlobalVariables.greyBackgroundCOlor,
+                title: const Text(
+                  'Sign In',
+                  style: TextStyle(fontWeight: FontWeight.bold),
+                ),
+                leading: Radio(
+                    activeColor: GlobalVariables.secondaryColor,
+                    value: Auth.signIn,
+                    groupValue: _auth,
+                    onChanged: (Auth? val) {
+                      setState(() {
+                        _auth = val!;
+                      });
+                    }),
               ),
-            //SIGN IN
-            ListTile(
-              shape: const RoundedRectangleBorder(
-                  borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(10),
-                      topRight: Radius.circular(10))),
-              tileColor: _auth == Auth.signIn
-                  ? GlobalVariables.backgroundColor
-                  : GlobalVariables.greyBackgroundCOlor,
-              title: const Text(
-                'Sign In',
-                style: TextStyle(fontWeight: FontWeight.bold),
-              ),
-              leading: Radio(
-                  activeColor: GlobalVariables.secondaryColor,
-                  value: Auth.signIn,
-                  groupValue: _auth,
-                  onChanged: (Auth? val) {
-                    setState(() {
-                      _auth = val!;
-                    });
-                  }),
-            ),
-            if (_auth == Auth.signIn)
-              Container(
-                padding: const EdgeInsets.all(8),
-                color: GlobalVariables.backgroundColor,
-                child: Form(
-                  key: _signUpFormKey,
-                  child: Column(
-                    children: [
-                      CustomTextField(
-                        controller: _emailController,
-                        hintText: 'E-mail',
-                      ),
-                      CustomTextField(
-                        controller: _passwordController,
-                        hintText: 'Password',
-                      ),
-                      const SizedBox(height: 10),
-                      CustomButton(text: 'Sign Up', onTap: () {})
-                    ],
+              if (_auth == Auth.signIn)
+                Container(
+                  padding: const EdgeInsets.all(8),
+                  color: GlobalVariables.backgroundColor,
+                  child: Form(
+                    key: _signInFormKey,
+                    child: Column(
+                      children: [
+                        CustomTextField(
+                          controller: _emailController,
+                          hintText: 'E-mail',
+                        ),
+                        CustomTextField(
+                          controller: _passwordController,
+                          hintText: 'Password',
+                        ),
+                        const SizedBox(height: 10),
+                        CustomButton(
+                            text: 'Sign In',
+                            onTap: () {
+                              if (_signInFormKey.currentState!.validate()) {
+                                signInUser();
+                              }
+                            })
+                      ],
+                    ),
                   ),
                 ),
-              ),
-          ],
+              const Center(
+                child: Padding(
+                  padding: EdgeInsets.all(8.0),
+                  child: Text(
+                    'Powered by apisod .com',
+                    style: TextStyle(fontSize: 12, fontStyle: FontStyle.italic),
+                  ),
+                ),
+              )
+            ],
+          ),
         ),
       ),
     );
