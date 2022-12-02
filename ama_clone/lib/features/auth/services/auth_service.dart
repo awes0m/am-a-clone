@@ -1,6 +1,8 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'dart:convert';
 
-import 'package:ama_clone/features/home/screens/home_screen.dart';
+import 'package:ama_clone/common/widgets/bottom_bar.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:http/http.dart' as http;
 import 'package:provider/provider.dart';
@@ -46,7 +48,7 @@ class AuthService {
           onSuccess: () {
             showSnackBar(
                 context, 'Account Created : Login with same credentials!');
-          });
+          }); 
     } catch (e) {
       showSnackBar(context, e.toString());
     }
@@ -81,7 +83,7 @@ class AuthService {
             await prefs.setString(
                 'x-auth-token', jsonDecode(res.body)['token']);
             Navigator.pushAndRemoveUntil(context,
-                HomeScreen.routeName as Route<Object?>, (route) => false);
+                BottomBar.routeName as Route<Object?>, (route) => false);
           });
     } catch (e) {
       showSnackBar(context, e.toString());

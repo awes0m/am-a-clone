@@ -7,16 +7,31 @@ class GlobalVariables {
   // COLORS
   static const appBarGradient = LinearGradient(
     colors: [
-      Color.fromARGB(255, 29, 201, 192),
-      Color.fromARGB(255, 125, 221, 216),
+      // Color.fromARGB(255, 29, 201, 192),
+      // Color.fromARGB(255, 125, 221, 216),
+      // Color.fromRGBO(73, 113, 116, 1),
+      Color.fromRGBO(250, 214, 165, 1),
+
+      Color.fromRGBO(207, 185, 151, 1),
+    ],
+    stops: [0.5, 1.0],
+  );
+  static const lighterBarGradient = LinearGradient(
+    colors: [
+      // Color.fromARGB(255, 29, 201, 192),
+      // Color.fromARGB(255, 125, 221, 216),
+      // Color.fromRGBO(73, 113, 116, 1),
+      Color.fromRGBO(250, 214, 165, 0.5),
+
+      Color.fromRGBO(207, 185, 151, 0.5),
     ],
     stops: [0.5, 1.0],
   );
 
-  static const secondaryColor = Color.fromRGBO(73, 113, 116, 1);
+  static const secondaryColor = Color.fromRGBO(155, 161, 123, 1);
   static const backgroundColor = Color.fromRGBO(239, 245, 245, 1);
-  static const Color greyBackgroundCOlor = Color.fromRGBO(214, 228, 229, 1);
-  static const selectedNavBarColor = Color.fromRGBO(235, 100, 64, 1);
+  static const Color greyBackgroundCOlor = Color.fromARGB(255, 238, 237, 222);
+  static const selectedNavBarColor = Color.fromRGBO(97, 118, 75, 1);
   static const unselectedNavBarColor = Colors.black87;
 
   // STATIC IMAGES
@@ -30,6 +45,10 @@ class GlobalVariables {
 
   static const List<Map<String, String>> categoryImages = [
     {
+      'title': 'Books',
+      'image': 'assets/images/books.jpeg',
+    },
+    {
       'title': 'Mobiles',
       'image': 'assets/images/mobiles.jpeg',
     },
@@ -40,10 +59,6 @@ class GlobalVariables {
     {
       'title': 'Appliances',
       'image': 'assets/images/appliances.jpeg',
-    },
-    {
-      'title': 'Books',
-      'image': 'assets/images/books.jpeg',
     },
     {
       'title': 'Fashion',

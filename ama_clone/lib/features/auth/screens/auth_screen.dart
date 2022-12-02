@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 
+import '../../../common/logo.dart';
 import '../../../common/widgets/custom_button.dart';
 import '../../../common/widgets/custom_text_field.dart';
 import '../../../constants/global_variables.dart';
 import '../services/auth_service.dart';
+import '../widgets/auth_screen_appbar.dart';
 
 enum Auth {
   signIn,
@@ -28,8 +30,6 @@ class _AuthScreenState extends State<AuthScreen> {
   final TextEditingController _passwordController = TextEditingController();
   final TextEditingController _nameController = TextEditingController();
   final AuthService authService = AuthService();
-
-
 
   @override
   void dispose() {
@@ -59,6 +59,7 @@ class _AuthScreenState extends State<AuthScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: authScreenAppBar,
       backgroundColor: GlobalVariables.greyBackgroundCOlor,
       body: Padding(
         padding: const EdgeInsets.all(8.0),
@@ -70,13 +71,7 @@ class _AuthScreenState extends State<AuthScreen> {
                 'Welcome to',
                 style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
               ),
-              const Text(
-                'TrxPlore',
-                style: TextStyle(
-                    fontSize: 40,
-                    fontWeight: FontWeight.w300,
-                    color: GlobalVariables.secondaryColor),
-              ),
+              logo,
 
               //SIGN UP
               ListTile(
@@ -200,3 +195,5 @@ class _AuthScreenState extends State<AuthScreen> {
     );
   }
 }
+
+
