@@ -2,16 +2,13 @@
 
 import 'dart:convert';
 
-import 'package:ama_clone/common/widgets/bottom_bar.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:http/http.dart' as http;
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import 'package:ama_clone/constants/error_handling.dart';
-import 'package:ama_clone/constants/global_variables.dart';
-import 'package:ama_clone/constants/utils.dart';
-
+import '../../../common/widgets/bottom_bar.dart';
+import '../../../constants/constants.dart';
 import '../../../models/user.dart';
 import '../../../provider/user_provider.dart';
 
@@ -48,7 +45,7 @@ class AuthService {
           onSuccess: () {
             showSnackBar(
                 context, 'Account Created : Login with same credentials!');
-          }); 
+          });
     } catch (e) {
       showSnackBar(context, e.toString());
     }

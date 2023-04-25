@@ -1,14 +1,17 @@
-import 'package:ama_clone/common/widgets/bottom_bar.dart';
-import 'package:ama_clone/constants/global_variables.dart';
-import 'package:ama_clone/features/auth/services/auth_service.dart';
-import 'package:ama_clone/provider/user_provider.dart';
-import 'package:ama_clone/router.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:provider/provider.dart';
 
+import 'common/common.dart';
+import 'constants/constants.dart';
+import 'features/admin/screens/admin_screen.dart';
 import 'features/auth/screens/auth_screen.dart';
+import 'features/auth/services/auth_service.dart';
+import 'provider/user_provider.dart';
+import 'router.dart';
 
-void main() {
+Future<void> main() async {
+  await dotenv.load(fileName: ".env");
   runApp(MultiProvider(providers: [
     ChangeNotifierProvider(
       create: (context) => UserProvider(),
@@ -47,9 +50,10 @@ class _MyAppState extends State<MyApp> {
                 elevation: 0, iconTheme: IconThemeData(color: Colors.black))),
         onGenerateRoute: (settings) => generateRoute(settings),
         home: Scaffold(
-          body: Provider.of<UserProvider>(context).user.token.isNotEmpty
-              ? const BottomBar()
-              : const AuthScreen(),
-        ));
+            body: Provider.of<UserProvider>(context).user.token.isNotEmpty
+                ? Provider.of<UserProvider>(context).user.type == 'user'
+                    ? const BottomBar()
+                    : const AdminScreen()
+                : const AuthScreen()));
   }
 }

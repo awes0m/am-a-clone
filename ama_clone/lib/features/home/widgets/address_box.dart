@@ -1,7 +1,7 @@
-import 'package:ama_clone/constants/global_variables.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../../../constants/global_variables.dart';
 import '../../../provider/user_provider.dart';
 
 class AddressBox extends StatelessWidget {

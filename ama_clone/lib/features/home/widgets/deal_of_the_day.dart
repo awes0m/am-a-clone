@@ -1,5 +1,6 @@
-import 'package:ama_clone/constants/global_variables.dart';
 import 'package:flutter/material.dart';
+
+import '../../../constants/global_variables.dart';
 
 class DealOfDay extends StatelessWidget {
   const DealOfDay({Key? key}) : super(key: key);
@@ -70,7 +71,7 @@ class DealOfDay extends StatelessWidget {
             padding:
                 const EdgeInsets.symmetric(vertical: 15).copyWith(left: 15),
             alignment: Alignment.topLeft,
-            child: Text(
+            child: const Text(
               'See All Deals',
               style: TextStyle(color: GlobalVariables.secondaryColor),
             ))

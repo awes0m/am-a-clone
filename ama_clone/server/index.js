@@ -1,19 +1,22 @@
 //IMPORTS
 const express = require("express");
 const mongoose = require("mongoose");
+const dotenv = require("dotenv");
 
 // IMPORT FROM OTHER FILES
 const authRouter = require("./routes/auth");
+const adminRouter = require("./routes/admin");
 
 // INIT
-const PORT = 3000;
+dotenv.config();
+const PORT =process.env.PORT || 3000;
 const app = express();
-const DB =
-  "mongodb+srv://Somongoadmin:somongoadmin123@clustered.qag1arw.mongodb.net/?retryWrites=true&w=majority";
+
 
 //middleware
 app.use(express.json());
 app.use(authRouter);
+app.use(adminRouter);
 
 
 //crud
@@ -22,7 +25,7 @@ app.use(authRouter);
 
 //Connections
 mongoose
-  .connect(DB)
+  .connect(process.env.URL)
   .then(() => {
     console.log("Connection Successful to DB");
   })

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
+import 'package:google_fonts/google_fonts.dart' as gfont;
 
 import '../../../constants/global_variables.dart';
 
@@ -16,7 +16,7 @@ PreferredSizeWidget authScreenAppBar = PreferredSize(
         alignment: Alignment.topLeft,
         child: Text(
           'Hello Adventurer !',
-          style: GoogleFonts.caveat(
+          style: gfont.GoogleFonts.caveat(
               fontSize: 25, color: Colors.black, fontWeight: FontWeight.w600),
         ),
       ),

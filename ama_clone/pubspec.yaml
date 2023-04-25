@@ -37,11 +37,14 @@ dependencies:
   cupertino_icons: ^1.0.2
   http: ^0.13.5
 
-  shared_preferences: ^2.0.15
-  provider: ^6.0.4
+  shared_preferences: ^2.0.18
+  provider: ^6.0.5
   badges: ^2.0.3
-  google_fonts: ^3.0.1
+  google_fonts: ^4.0.3 
   carousel_slider: ^4.1.1
+  dotted_border: ^2.0.0+3
+  file_picker: ^5.2.5
+  cloudinary_public: ^0.20.0
 
 dev_dependencies:
   flutter_test:
@@ -53,6 +56,8 @@ dev_dependencies:
   # package. See that file for information about deactivating specific lint
   # rules and activating additional ones.
   flutter_lints: ^2.0.0
+  flutter_dotenv: ^5.0.2
+
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
@@ -67,6 +72,7 @@ flutter:
 
   # To add assets to your application, add an assets section, like this:
   assets:
+    - .env
     - assets/images/
   #   - images/a_dot_ham.jpeg
 

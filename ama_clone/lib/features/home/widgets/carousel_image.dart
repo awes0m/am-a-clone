@@ -1,6 +1,7 @@
-import 'package:ama_clone/constants/global_variables.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+
+import '../../../constants/global_variables.dart';
 
 class CarouselImage extends StatelessWidget {
   const CarouselImage({Key? key}) : super(key: key);

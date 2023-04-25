@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 
-import '../../../common/logo.dart';
-import '../../../common/widgets/custom_button.dart';
-import '../../../common/widgets/custom_text_field.dart';
-import '../../../constants/global_variables.dart';
+import '../../../common/common.dart';
+import '../../../constants/constants.dart';
 import '../services/auth_service.dart';
 import '../widgets/auth_screen_appbar.dart';
 
@@ -195,5 +193,3 @@ class _AuthScreenState extends State<AuthScreen> {
     );
   }
 }
-
-

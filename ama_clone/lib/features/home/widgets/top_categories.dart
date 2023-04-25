@@ -1,5 +1,6 @@
-import 'package:ama_clone/constants/global_variables.dart';
 import 'package:flutter/material.dart';
+
+import '../../../constants/constants.dart';
 
 class TopCategories extends StatelessWidget {
   const TopCategories({Key? key}) : super(key: key);
