@@ -6,6 +6,7 @@ const dotenv = require("dotenv");
 // IMPORT FROM OTHER FILES
 const authRouter = require("./routes/auth");
 const adminRouter = require("./routes/admin");
+const productRouter = require("./routes/product")
 
 // INIT
 dotenv.config();
@@ -17,6 +18,8 @@ const app = express();
 app.use(express.json());
 app.use(authRouter);
 app.use(adminRouter);
+app.use(productRouter);
+
 
 
 //crud

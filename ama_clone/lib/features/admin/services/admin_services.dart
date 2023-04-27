@@ -1,10 +1,10 @@
-// ignore_for_file: use_build_context_synchronously
+// ignore_for_file: depend_on_referenced_packages
+import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'dart:convert';
 import 'dart:io';
 
 import 'package:cloudinary_public/cloudinary_public.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:http/http.dart' as http;
 import 'package:provider/provider.dart';
 
@@ -25,6 +25,13 @@ class AdminServices {
     final userProvider = Provider.of<UserProvider>(context, listen: false);
     String cloudname = dotenv.env['CLOUD_NAME'] ?? '';
     String uploadPreset = dotenv.env['UPLOAD_PRESET'] ?? '';
+    errorHandler(res) => httpErrorHandle(
+        response: res,
+        context: context,
+        onSuccess: () {
+          showSnackBar(context, 'Product Added Sucessfully!');
+          Navigator.pop(context);
+        });
 
     try {
       final cloudinary = CloudinaryPublic(cloudname, uploadPreset);
@@ -53,13 +60,7 @@ class AdminServices {
         },
         body: product.toJson(),
       );
-      httpErrorHandle(
-          response: res,
-          context: context,
-          onSuccess: () {
-            showSnackBar(context, 'Product Added Sucessfully!');
-            Navigator.pop(context);
-          });
+      errorHandler(res);
     } catch (e) {
       showSnackBar(context, e.toString());
     }
@@ -67,6 +68,21 @@ class AdminServices {
 
   Future<List<Product>> fetchAllProducts(BuildContext context) async {
     final userProvider = Provider.of<UserProvider>(context, listen: false);
+    errorHandler(res, productList) => httpErrorHandle(
+          response: res,
+          context: context,
+          onSuccess: () {
+            for (int i = 0; i < jsonDecode(res.body).length; i++) {
+              productList.add(
+                Product.fromJson(
+                  jsonEncode(
+                    jsonDecode(res.body)[i],
+                  ),
+                ),
+              );
+            }
+          },
+        );
     List<Product> productList = [];
     try {
       http.Response res =
@@ -75,21 +91,7 @@ class AdminServices {
         'x-auth-token': userProvider.user.token,
       });
 
-      httpErrorHandle(
-        response: res,
-        context: context,
-        onSuccess: () {
-          for (int i = 0; i < jsonDecode(res.body).length; i++) {
-            productList.add(
-              Product.fromJson(
-                jsonEncode(
-                  jsonDecode(res.body)[i],
-                ),
-              ),
-            );
-          }
-        },
-      );
+      errorHandler(res, productList);
     } catch (e) {
       showSnackBar(context, e.toString());
     }
@@ -102,7 +104,12 @@ class AdminServices {
     required VoidCallback onSucess,
   }) async {
     final userProvider = Provider.of<UserProvider>(context, listen: false);
-
+    errorHandler(res) => httpErrorHandle(
+        response: res,
+        context: context,
+        onSuccess: () {
+          onSucess();
+        });
     try {
       http.Response res = await http.delete(
         Uri.parse('$uri/admin/delete-product'),
@@ -114,12 +121,7 @@ class AdminServices {
           'id': product.id,
         }),
       );
-      httpErrorHandle(
-          response: res,
-          context: context,
-          onSuccess: () {
-            onSucess();
-          });
+      errorHandler(res);
     } catch (e) {
       showSnackBar(context, e.toString());
     }
